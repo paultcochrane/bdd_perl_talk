@@ -78,8 +78,8 @@
 \definecolor{dngreen}{HTML}{37C871}
 
 % image and logo definitions
-\pgfdeclareimage[height=5mm]{LEFT_LOGO}{logo_left}
-\pgfdeclareimage[height=5mm]{RIGHT_LOGO}{logo_right}
+%\pgfdeclareimage[height=5mm]{LEFT_LOGO}{logo_left}
+%\pgfdeclareimage[height=5mm]{RIGHT_LOGO}{logo_right}
 
 \hypersetup{colorlinks=true,linkcolor=dnblue, citecolor=black, urlcolor=dnblue}
 

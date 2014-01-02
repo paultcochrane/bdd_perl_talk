@@ -1,0 +1,9 @@
+*~
+*.swp
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+bdd_perl.pdf

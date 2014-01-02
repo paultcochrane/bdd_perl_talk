@@ -6,4 +6,5 @@
 *.out
 *.snm
 *.toc
+*.vrb
 bdd_perl.pdf

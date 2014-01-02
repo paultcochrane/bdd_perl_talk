@@ -1,30 +1,448 @@
 \documentclass[10pt]{vcs_beamer}
 
+\newcommand{\pending}[1]{\color{DarkOrange}{#1}}
+\newcommand{\scenario}[1]{\color{RoyalBlue}{#1}}
+\newcommand{\str}[1]{\color{Turquoise}{#1}}
+\newcommand{\error}[1]{\color{red}{#1}}
+\newcommand{\pass}[1]{\color{ForestGreen}{#1}}
+
 \begin{document}
 
 \author{Paul Cochrane}
-\title{Behaviour-Driven Development in Perl}
+\title{Behaviour Driven Development in Perl}
 \date{\today}
 
 \maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-%\small
-\begin{multicols}{2}
-\begin{spacing}{0.8}
-\tableofcontents
-\end{spacing}
-\end{multicols}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Introduction}
+\begin{frame}{What is Behaviour Driven Development?}
 
 \begin{itemize}
-    \item BDD
+    \item Comes from the Agile concept of \emph{User Stories}
+    \item A form of requirements specification
+    \item Outside-in development
+    \item Complements and uses TDD
 \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+    \frametitle{Cucumber}
+
+\begin{itemize}
+    \item Stakeholders/Domain experts write requirements in business-readable
+        domain-specific language.
+    \item This can be parsed and the underlying tests get executed.
+    \item Serves as documentation for the desired features.
+    \item Domain experts don't have to write code!
+    \item Parseable natural language: \emph{Gherkin}
+\end{itemize}
+
+\begin{lstlisting}[escapeinside='']
+'\color{BlueViolet}{Feature:}' User login
+    As a user of the system
+    In order to see my account information
+    I want to be able to log in
+
+    '\color{BlueViolet}{Scenario:}' Successful login
+        '\color{DarkOrange}{Given}' I have an account on the system
+        '\color{RoyalBlue}{When}' I enter my username and password
+        '\color{ForestGreen}{Then}' I should be presented with my account information
+\end{lstlisting}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cucumber history}
+
+\begin{itemize}
+    \item Java $\rightarrow$ jbehave, now Cuke for Duke
+    \item .NET $\rightarrow$ Cuke for Nuke
+    \item Ruby $\rightarrow$ rbehave $\rightarrow$ cucumber
+    \item Python $\rightarrow$ behave
+    \item Perl $\rightarrow$ Test::BDD::Cucumber, pherkin
+    \item More info from \url{www.cukes.info}
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Gherkin the language}
+\begin{description}
+    \item[Feature] name of current feature
+        \begin{description}
+            \item[In order to] [business value]
+            \item[As a] [role]
+            \item[I want to] [some action]
+        \end{description}
+\end{description}
+
+\begin{description}
+    \item[Scenario] name of current scenario
+        \begin{description}
+            \item[Given] [context/state]
+            \item[When] [action]
+            \item[And] [another action] (optional)
+            \item[But] [not some other action] (optional)
+            \item[Then] [outcome]
+            \item[And] [another outcome] (optional)
+            \item[But] [not some other outcome] (optional)
+        \end{description}
+\end{description}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Gherkin works in \emph{your} language}
+
+\begin{lstlisting}[escapeinside='']
+Funktionalit'ä't: dickes Auto fahren
+    Als deutsche Autofahrer
+    Damit ich schnell fahren kann
+    Will ich ein dickes Auto haben
+
+    Szenario: auf der Autobahn fahren
+        Angenommen, dass ich auf der Autobahn fahre
+        Wenn ich Gas gebe
+        Dann soll ich mit mindestens 180 Sachen unterwegs sein
+\end{lstlisting}
+
+
+\begin{lstlisting}
+OHAI: I CAN HAS WISHEZ PLZ
+    SO DAT I CAN HAS HUGS TIEM AN PLAY TIEM AN SLEEP TIEM
+    AS NICE GREEDEE KITTEH
+    I CAN PLZ MANEGE TEH WISHEZ
+
+    MISHUN: MAK NEW WISH
+        GIVN I AM LOGGD IN
+        WEN I MAK "CHEEZBURGER" WISH
+        DEN I C "CHEEZBURGER" ON ME WISHEZ LIST
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{BDD development cycle}
+    \begin{itemize}
+        \item Start a feature
+        \item Write a scenario describing an aspect of that feature
+        \item Write the steps associated with that scenario
+        \item Run \ttt{pherkin}
+        \item Steps are undefined
+        \item Write steps in unit-testing framework
+        \item Steps fail
+        \item Red $\rightarrow$ Green $\rightarrow$ Refactor until step passes
+        \item Move on to next step
+        \item Wash, rinse, repeat
+    \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Required directory structure for Cucumber}
+
+\begin{lstlisting}
+project/
+    features/
+        my_cool_feature.feature
+        step_definitions/
+            cool_steps.pl
+            other_steps.pl
+\end{lstlisting}
+
+\begin{itemize}
+    \item \ttt{.feature} file is written in Gherkin
+    \item step files are written in Perl
+    \item step files use your favourite testing framework (e.g.
+        \ttt{Test::More})
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{A program to say ``moin''}
+
+Run \ttt{pherkin}
+\begin{lstlisting}
+$ pherkin
+No feature files found at ....
+\end{lstlisting}
+%stopzone
+
+Create a feature file and a \ttt{step\_definitions} directory
+\begin{lstlisting}
+$ mkdir -p features/step_definitions
+$ vim features/say_moin.feature
+Feature: Say moin to names in list
+    As a user of the software
+    In order to be a nice person
+    I want to say "moin" to others
+
+    Scenario: one name
+        Given the name "bob"
+        When I say moin
+        Then I should see "moin bob"
+\end{lstlisting}
+%stopzone
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Example: A program to say ``moin''}
+
+Running \ttt{pherkin} again should now show us boilerplate code we can copy
+and paste to create our step definitions (standard behaviour of Cucumber and
+Behave), however this isn't yet implemented.
+
+\begin{itemize}
+    \item Running \ttt{pherkin} shows us that all steps are pending.
+\end{itemize}
+
+\begin{lstlisting}[escapeinside='']
+Scenario: '\color{RoyalBlue}{one name}'
+  '\color{DarkOrange}{Given the name} \color{Turquoise}{"bob"}'
+  '\color{DarkOrange}{When I say moin}'
+  '\color{DarkOrange}{Then I should see} \color{Turquoise}{"moin bob"}'
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Example: A program to say ``moin''}
+
+\begin{itemize}
+    \item Create the step file
+\end{itemize}
+
+\begin{lstlisting}[language=perl]
+use warnings;
+use strict;
+
+use Test::More;
+use Test::BDD::Cucumber::StepFile;
+use Method::Signatures;
+
+Given qr//, func($c) {  # $c is an object holding context info
+    ok(0);
+};
+
+When qr//, func($c) {
+    ok(0);
+};
+
+Then qr//, func($c) {
+    ok(0);
+};
+\end{lstlisting}
+%stopzone
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Example: A program to say ``moin''}
+
+\begin{itemize}
+    \item \ttt{Given} step will fail.  \ttt{When} and \ttt{Then} steps are
+        still pending.
+\end{itemize}
+
+\begin{lstlisting}[escapeinside='']
+Scenario: '\scenario{one name}'
+    '\error{Given the name}' '\str{"bob"}'
+    '\error{step defined at features/say\_moin.feature line 7.}'
+    '\error{ok 1 - Starting to execute step: the name "bob"}'
+    '\error{not ok 2}'
+    '\error{\#   Failed test at features/step\_definitions/say\_moin\_steps.pl line 16.}'
+    '\error{1..2}'
+  '\pending{When I say moin}'
+  '\pending{Then I should see}' '\str{"moin bob"}'
+\end{lstlisting}
+
+\begin{itemize}
+    \item Write \ttt{Given} test.
+\end{itemize}
+
+\begin{lstlisting}[language=perl]
+Given qr/the name "(\w+)"/, func($c) {
+    use MoinSayer;
+    my $sayer = MoinSayer->new(name => $1);
+    ok( $sayer, "Object created" );
+    $c->stash->{'scenario'}->{'object'} = $sayer;
+};
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Example: A program to say ``moin''}
+
+\begin{itemize}
+    \item \ttt{Given} step naturally still fails (but now for a different
+        reason).
+    \item Create \ttt{lib} dir, add \ttt{MoinSayer} class and \ttt{name}
+        attribute.
+\end{itemize}
+
+\begin{lstlisting}[language=perl]
+$ mkdir lib
+$ vim lib/MoinSayer.pm
+...
+has 'name' => (
+    is => 'ro',
+    isa => 'Str',
+);
+...
+\end{lstlisting}
+%stopzone
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Example: A program to say ``moin''}
+
+\begin{itemize}
+    \item \ttt{Given} step now passes; \ttt{When} step now fails; \ttt{Then}
+        step still pending.
+\end{itemize}
+
+\begin{lstlisting}[escapeinside='']
+$ pherkin -I lib
+Scenario: '\scenario{one name}'
+  '\pass{Given the name} \str{"bob"}'
+  '\error{When I say moin}'
+    '\error{step defined at features/say\_moin.feature line 8.}'
+    '\error{ok 1 - Starting to execute step: I say moin}'
+    '\error{not ok 2}'
+    '\error{\#   Failed test at features/step\_definitions/say\_moin\_steps.pl line 23.}'
+    '\error{1..2}'
+  '\pending{Then I should see} \str{"moin bob"}'
+\end{lstlisting}
+%stopzone
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Example: A program to say ``moin''}
+
+\begin{itemize}
+    \item Write \ttt{When} test.
+\end{itemize}
+
+\begin{lstlisting}[language=perl]
+...
+my $stdout = capture_stdout {
+    $c->stash->{'scenario'}->{'object'}->moin();
+};
+$c->stash->{'scenario'}->{'stdout'} = $stdout;
+...
+\end{lstlisting}
+
+\begin{itemize}
+    \item Write stub \ttt{moin()} method.
+\end{itemize}
+
+\begin{lstlisting}[language=perl]
+...
+sub moin {
+    my $self = shift;
+}
+...
+\end{lstlisting}
+%stopzone
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Example: A program to say ``moin''}
+
+\begin{itemize}
+    \item \ttt{When} step now passes.  \ttt{Then} step now fails.
+\end{itemize}
+
+\begin{lstlisting}[escapeinside='']
+Scenario: '\scenario{one name}'
+  '\pass{Given the name} \str{"bob"}'
+  '\pass{When I say moin}'
+  '\error{Then I should see} \str{"moin bob"}'
+    '\error{step defined at features/say\_moin.feature line 9.}'
+    '\error{ok 1 - Starting to execute step: I should see "moin bob"}'
+    '\error{not ok 2}'
+    '\error{\#   Failed test at features/step\_definitions/say\_moin\_steps.pl line 28.}'
+    '\error{1..2}'
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Example: A program to say ``moin''}
+
+\begin{itemize}
+    \item Implement \ttt{Then} test and \ttt{moin} sub.
+\end{itemize}
+
+\begin{lstlisting}[language=perl]
+...
+my $stdout = $c->stash->{'scenario'}->{'stdout'};
+like( $stdout, qr/moin $1/, "Said expected greeting" );
+...
+\end{lstlisting}
+
+\begin{lstlisting}[language=perl]
+...
+sub moin {
+    my $self = shift;
+    print "moin ", $self->name, "\n";
+}
+...
+\end{lstlisting}
+%stopzone
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Example: A program to say ``moin''}
+
+\begin{itemize}
+    \item All steps now pass.
+\end{itemize}
+
+\begin{lstlisting}[escapeinside='']
+Scenario: '\scenario{one name}'
+  '\pass{Given the name} \str{"bob"}'
+  '\pass{When I say moin}'
+  '\pass{Then I should see} \str{"moin bob"}'
+\end{lstlisting}
+
+\begin{itemize}
+    \item Now add next scenario
+\end{itemize}
+
+\begin{lstlisting}
+    Scenario: a list of names
+        Given the list of names "bob", "alice", "charlie", "eve"
+        When I say moin
+        Then I should see "moin bob", "moin alice", "moin charlie", "moin eve"
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Tags}
+
+tags, background, tables, pystrings
 
 \end{frame}
 

@@ -22,7 +22,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{vcs_beamer}[2013/09/03 Version control system course LaTeX Class]
 
-\LoadClass[11pt,t]{beamer}
+\LoadClass[11pt,t,xcolor=svgnames]{beamer}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}

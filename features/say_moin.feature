@@ -3,13 +3,14 @@ Feature: Say moin to names in list
     In order to be a nice person
     I want to say "moin" to others
 
-    Scenario: one name
+    Background:
         Given a MoinSayer object  # dodgy!  implementation detail...
+
+    Scenario: one name
         When I say "moin" to "bob"
         Then I should see the message "moin bob"
 
     Scenario: say moin to multiple users
-        Given a MoinSayer object
         When I say "moin" to "<user>"
         Then I should see the message "<message>"
         Examples:

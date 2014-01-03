@@ -4,6 +4,7 @@ Feature: Say moin to names in list
     I want to say "moin" to others
 
     Scenario: one name
-	Given the name "bob"
-	When I say moin
-	Then I should see "moin bob"
+        Given a MoinSayer object  # dodgy!  implementation detail...
+        When I say "moin" to "bob"
+        Then I should see "moin bob"
+

@@ -5,14 +5,10 @@ use strict;
 
 use Moose;
 
-has 'name' => (
-    is => 'ro',
-    isa => 'Str',
-);
-
 sub moin {
     my $self = shift;
-    print "moin ", $self->name, "\n";
+    my $name = shift;
+    print "moin ", $name, "\n";
 }
 
 1;

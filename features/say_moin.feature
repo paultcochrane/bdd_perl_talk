@@ -8,3 +8,14 @@ Feature: Say moin to names in list
         When I say "moin" to "bob"
         Then I should see "moin bob"
 
+    Scenario: say moin to multiple users
+        Given a MoinSayer object
+        When I say "moin" to "<user>"
+        Then I should see the message "<message>"
+        Examples:
+            | user  | message    |
+            | bob   | moin bob   |
+            | alice | moin alice |
+            | eve   | moin eve   |
+
+# vim: expandtab shiftwidth=4 softtabstop=4

@@ -6,7 +6,7 @@ Feature: Say moin to names in list
     Scenario: one name
         Given a MoinSayer object  # dodgy!  implementation detail...
         When I say "moin" to "bob"
-        Then I should see "moin bob"
+        Then I should see the message "moin bob"
 
     Scenario: say moin to multiple users
         Given a MoinSayer object

@@ -22,7 +22,7 @@ When qr/I say "moin" to "(\w+)"/, func($c) {
     $c->stash->{'scenario'}->{'stdout'} = $stdout;
 };
 
-Then qr/I should see "moin (\w+)"/, func($c) {
+Then qr/I should see the message "moin (\w+)"/, func($c) {
     my $stdout = $c->stash->{'scenario'}->{'stdout'};
     like( $stdout, qr/moin $1/, "Said expected greeting" );
 };

@@ -19,4 +19,10 @@ Feature: Say moin to names in list
             | alice | moin alice |
             | eve   | moin eve   |
 
+    @wip
+    Scenario: say moin to English speakers
+        Given the language "english"
+        When I say "moin to "bob"
+        Then I should see the message "hello bob"
+
 # vim: expandtab shiftwidth=4 softtabstop=4

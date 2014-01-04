@@ -462,7 +462,68 @@ Scenario: say moin to multiple users
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[fragile]
+\frametitle{Background information}
+
+\begin{itemize}
+    \item Sometimes scenarios have redundant information
+    \item This can be extracted into \ttt{Background} information
+\end{itemize}
+
+\begin{lstlisting}
+Scenario: one name
+  Given a MoinSayer object  # dodgy!  implementation detail...
+  When I say "moin" to "bob"
+  Then I should see the message "moin bob"
+
+Scenario: say moin to multiple users
+  Given a MoinSayer object  # duplicated information
+  When I say "moin" to "<user>"
+  Then I see the message "<message>"
+  Examples:
+    | user  | message    |
+    | bob   | moin bob   |
+    | alice | moin alice |
+    | eve   | moin eve   |
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Background information}
+
+\begin{lstlisting}
+Background:
+  Given a MoinSayer object  # dodgy!  implementation detail...
+
+Scenario: one name
+  When I say "moin" to "bob"
+  Then I should see the message "moin bob"
+
+Scenario: say moin to multiple users
+  When I say "moin" to "<user>"
+  Then I see the message "<message>"
+  Examples:
+    | user  | message    |
+    | bob   | moin bob   |
+    | alice | moin alice |
+    | eve   | moin eve   |
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+    \frametitle{Comments}
+
+    \begin{itemize}
+        \item Comments begin with the \ttt{\#} character
+    \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
 \frametitle{Tags}
 
 tags, background, tables, pystrings

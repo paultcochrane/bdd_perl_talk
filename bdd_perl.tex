@@ -434,14 +434,29 @@ Scenario: '\scenario{one name}'
 \end{lstlisting}
 
 \begin{itemize}
-    \item Now add next scenario
+    \item Now add next scenario and slowly complete the feature
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Tables}
+
+\begin{itemize}
+    \item How to handle multiple inputs and outputs?
 \end{itemize}
 
 \begin{lstlisting}
-    Scenario: a list of names
-        Given the list of names "bob", "alice", "charlie", "eve"
-        When I say moin
-        Then I should see "moin bob", "moin alice", "moin charlie", "moin eve"
+Scenario: say moin to multiple users
+  Given a MoinSayer object
+  When I say "moin" to a "<user>"
+  Then I see the message "<message>"
+  Examples:
+    | user  | message    |
+    | bob   | moin bob   |
+    | alice | moin alice |
+    | eve   | moin eve   |
 \end{lstlisting}
 
 \end{frame}

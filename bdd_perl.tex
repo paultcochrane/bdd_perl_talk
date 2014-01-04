@@ -526,7 +526,72 @@ Scenario: say moin to multiple users
 \begin{frame}[fragile]
 \frametitle{Tags}
 
-tags, background, tables, pystrings
+\begin{itemize}
+    \item Features and Scenarios can also be tagged
+\end{itemize}
+
+\begin{lstlisting}
+    @wip
+    Scenario: say moin to English speakers
+        Given the language "english"
+        When I say "moin to "bob"
+        Then I should see the message "hello bob"
+\end{lstlisting}
+
+\begin{itemize}
+    \item ... and then run separately
+\end{itemize}
+\begin{lstlisting}
+$ pherkin -l -t @wip
+\end{lstlisting}
+
+\begin{itemize}
+    \item ... or skipped
+\end{itemize}
+\begin{lstlisting}
+$ pherkin -l -t ~@wip
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Pystrings}
+
+\begin{itemize}
+    \item Multi-line input can be entered as a \emph{pystring}
+\end{itemize}
+
+\begin{lstlisting}
+  Scenario: long messages to users
+    When the greeting text to "bob" contains
+    """
+    Greetings, oh most amazing
+    and illustrious aquaiantance
+    """
+    Then the message should be
+    """
+    Greetings, oh most amazing
+    and illustrious aquaintance,
+    bob
+    """
+\end{lstlisting}
+
+\begin{itemize}
+    \item Leading whitespace before pystring is trimmed
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Thank you!}
+
+\vspace*{2cm}
+\begin{center}
+    \LARGE
+Thank you for your attention \ttt{:-)}
+\end{center}
 
 \end{frame}
 

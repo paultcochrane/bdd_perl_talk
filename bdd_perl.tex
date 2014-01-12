@@ -81,29 +81,34 @@ TDD: low level functionality -> high level features
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Gherkin the language}
-\begin{description}
-    \item[Feature] name of current feature
-        \begin{description}
-            \item[In order to] [business value]
-            \item[As a] [role]
-            \item[I want to] [some action]
-        \end{description}
-\end{description}
 
-\begin{description}
-    \item[Scenario] name of current scenario
-        \begin{description}
-            \item[Given] [context/state]
-            \item[When] [action]
-            \item[And] [another action] (optional)
-            \item[But] [not some other action] (optional)
-            \item[Then] [outcome]
-            \item[And] [another outcome] (optional)
-            \item[But] [not some other outcome] (optional)
-        \end{description}
-\end{description}
+\begin{lstlisting}[escapeinside='']
+'\Feature' name of current feature
+    '\str{\# description of feature; purely for documentation}'
+    In order to [business value]
+    As a [role]
+    I want to [some action]
+
+    '\str{\# possible background information, relevant to all scenarios}'
+    '\Background'
+        '\Given' [context/state]
+
+    '\str{\# scenario(s) describing details of feature}'
+    '\Scenario' name of current scenario
+        '\Given' [context/state]
+        '\When' [action]
+        '\Then' [outcome]
+
+    '\str{\# also}'
+    '\ScenarioOutline' name of scenario outline
+        '\Given', '\When', '\Then', etc.
+
+        '\Exampless'
+            | item header | value header |
+            | item        | value        |
+\end{lstlisting}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

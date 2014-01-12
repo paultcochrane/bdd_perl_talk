@@ -206,9 +206,18 @@ project/
 
 \begin{itemize}
     \item \ttt{.feature} file is written in Gherkin
-    \item step files are written in Perl
-    \item step files use your favourite testing framework (e.g.
-        \ttt{Test::More})
+    \item step definition files are written in Perl
+    \item step definition files use your favourite testing framework\\
+        (e.g. \ttt{Test::More})
+    \item Recommended minimum Perl code in a step definition file:
+\begin{lstlisting}[language=perl]
+use strict;
+use warnings;
+
+use Test::More;
+use Test::BDD::Cucumber::StepFile;
+use Method::Signatures;
+\end{lstlisting}
 \end{itemize}
 
 \end{frame}

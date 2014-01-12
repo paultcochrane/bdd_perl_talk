@@ -1,7 +1,7 @@
 \documentclass[10pt]{vcs_beamer}
 
 \newcommand{\pending}[1]{\color{DarkOrange}{#1}}
-\newcommand{\scenario}[1]{\color{RoyalBlue}{#1}}
+\newcommand{\inscenario}[1]{\color{RoyalBlue}{#1}}
 \newcommand{\str}[1]{\color{Turquoise}{#1}}
 \newcommand{\error}[1]{\color{red}{#1}}
 \newcommand{\pass}[1]{\color{ForestGreen}{#1}}
@@ -280,7 +280,7 @@ Then qr//, func($c) {
 \end{itemize}
 
 \begin{lstlisting}[escapeinside='']
-Scenario: '\scenario{one name}'
+Scenario: '\inscenario{one name}'
     '\error{Given the name}' '\str{"bob"}'
     '\error{step defined at features/say\_moin.feature line 7.}'
     '\error{ok 1 - Starting to execute step: the name "bob"}'
@@ -342,7 +342,7 @@ has 'name' => (
 
 \begin{lstlisting}[escapeinside='']
 $ pherkin -I lib
-Scenario: '\scenario{one name}'
+Scenario: '\inscenario{one name}'
   '\pass{Given the name} \str{"bob"}'
   '\error{When I say moin}'
     '\error{step defined at features/say\_moin.feature line 8.}'
@@ -400,7 +400,7 @@ sub moin {
 \end{itemize}
 
 \begin{lstlisting}[escapeinside='']
-Scenario: '\scenario{one name}'
+Scenario: '\inscenario{one name}'
   '\pass{Given the name} \str{"bob"}'
   '\pass{When I say moin}'
   '\error{Then I should see} \str{"moin bob"}'
@@ -449,7 +449,7 @@ sub moin {
 \end{itemize}
 
 \begin{lstlisting}[escapeinside='']
-Scenario: '\scenario{one name}'
+Scenario: '\inscenario{one name}'
   '\pass{Given the name} \str{"bob"}'
   '\pass{When I say moin}'
   '\pass{Then I should see} \str{"moin bob"}'

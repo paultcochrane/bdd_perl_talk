@@ -116,28 +116,28 @@ TDD: low level functionality -> high level features
 \frametitle{Gherkin works in \emph{your} language}
 
 \begin{lstlisting}[escapeinside='']
-Funktionalit'ä't: dickes Auto fahren
+'\feature{Funktionalität:}' dickes Auto fahren
     Als deutsche Autofahrer
     Damit ich schnell fahren kann
     Will ich ein dickes Auto haben
 
-    Szenario: auf der Autobahn fahren
-        Angenommen, dass ich auf der Autobahn fahre
-        Wenn ich Gas gebe
-        Dann soll ich mit mindestens 180 Sachen unterwegs sein
+    '\scenario{Szenario:}' auf der Autobahn fahren
+        '\given{Angenommen}', dass ich auf der Autobahn fahre
+        '\when{Wenn}' ich Gas gebe
+        '\then{Dann}' soll ich mit mindestens 180 Sachen unterwegs sein
 \end{lstlisting}
 
 
-\begin{lstlisting}
-OHAI: I CAN HAS WISHEZ PLZ
+\begin{lstlisting}[escapeinside='']
+'\feature{OHAI:}' I CAN HAS WISHEZ PLZ
     SO DAT I CAN HAS HUGS TIEM AN PLAY TIEM AN SLEEP TIEM
     AS NICE GREEDEE KITTEH
     I CAN PLZ MANEGE TEH WISHEZ
 
-    MISHUN: MAK NEW WISH
-        GIVN I AM LOGGD IN
-        WEN I MAK "CHEEZBURGER" WISH
-        DEN I C "CHEEZBURGER" ON ME WISHEZ LIST
+    '\scenario{MISHUN:}' MAK NEW WISH
+        '\given{GIVN}' I AM LOGGD IN
+        '\when{WEN}' I MAK "CHEEZBURGER" WISH
+        '\then{DEN}' I C "CHEEZBURGER" ON ME WISHEZ LIST
 \end{lstlisting}
 
 \end{frame}

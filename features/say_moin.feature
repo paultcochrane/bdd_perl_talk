@@ -23,7 +23,7 @@ Feature: Say moin to names in list
     @wip
     Scenario: say moin to English speakers
         Given the language "english"
-        When I say "moin to "bob"
+        When I say moin to "bob"
         Then I should see the message "hello bob"
 
 # vim: expandtab shiftwidth=4 softtabstop=4

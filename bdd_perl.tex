@@ -536,12 +536,14 @@ compatible with Cucumber.  See Bugs section of README.pod in distro.
 
 \begin{lstlisting}
 Scenario: one name
-  Given a MoinSayer object  # dodgy!  implementation detail...
+  # dodgy!  implementation detail...
+  Given a MoinSayer object
   When I say "moin" to "bob"
   Then I should see the message "moin bob"
 
 Scenario: say moin to multiple users
-  Given a MoinSayer object  # duplicated information
+  # duplicated information
+  Given a MoinSayer object
   When I say "moin" to "<user>"
   Then I see the message "<message>"
   Examples:
@@ -559,7 +561,8 @@ Scenario: say moin to multiple users
 
 \begin{lstlisting}
 Background:
-  Given a MoinSayer object  # dodgy!  implementation detail...
+  # dodgy!  implementation detail...
+  Given a MoinSayer object
 
 Scenario: one name
   When I say "moin" to "bob"
@@ -583,6 +586,7 @@ Scenario: say moin to multiple users
 
     \begin{itemize}
         \item Comments begin with the \ttt{\#} character
+        \item Must be alone on a line
     \end{itemize}
 \end{frame}
 

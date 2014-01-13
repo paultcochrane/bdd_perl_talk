@@ -237,19 +237,19 @@ No feature files found at ....
 \end{lstlisting}
 %stopzone
 
-Create a feature file and a \ttt{step\_definitions} directory
-\begin{lstlisting}
+Create a feature file and a \ttt{step\_definitions/} directory
+\begin{lstlisting}[escapeinside='']
 $ mkdir -p features/step_definitions
 $ vim features/say_moin.feature
-Feature: Say moin to names in list
+'\Feature' Say moin to names in list
     As a user of the software
     In order to be a nice person
-    I want to say "moin" to others
+    I want to say '\str{"moin"}' to others
 
-    Scenario: one name
-        Given the name "bob"
-        When I say moin
-        Then I should see "moin bob"
+    '\Scenario' one name
+        '\Given' the name '\str{"bob"}'
+        '\When' I say moin
+        '\Then' I should see '\str{"moin bob"}'
 \end{lstlisting}
 %stopzone
 
@@ -501,18 +501,22 @@ Scenario: '\inscenario{one name}'
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Tables}
+\frametitle{Scenario Outlines}
 
 \begin{itemize}
     \item How to handle multiple inputs and outputs?
 \end{itemize}
 
-\begin{lstlisting}
-Scenario: say moin to multiple users
-  Given a MoinSayer object
-  When I say "moin" to a "<user>"
-  Then I see the message "<message>"
-  Examples:
+Will be called \ttt{\ScenarioOutline} in a future version in order to be
+compatible with Cucumber.  See Bugs section of README.pod in distro.
+
+\begin{lstlisting}[escapeinside='']
+'\Scenario' say moin to multiple users
+  '\Given' a MoinSayer object
+  '\When' I say "moin" to a "<user>"
+  '\Then' I see the message "<message>"
+
+  '\Exampless'
     | user  | message    |
     | bob   | moin bob   |
     | alice | moin alice |

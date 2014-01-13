@@ -588,6 +588,22 @@ Scenario: say moin to multiple users
         \item Comments begin with the \ttt{\#} character
         \item Must be alone on a line
     \end{itemize}
+
+    Correct:
+    \begin{lstlisting}[escapeinside='']
+    '\ccomment{\# some meta-information about the following step}'
+    '\Given' blah
+    '\When' moo
+    '\Then' baa
+    \end{lstlisting}
+
+
+    Incorrect:
+    \begin{lstlisting}[escapeinside='']
+    '\Given' blah # what does blah mean?
+    '\When' moo
+    '\Then' baa
+    \end{lstlisting}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

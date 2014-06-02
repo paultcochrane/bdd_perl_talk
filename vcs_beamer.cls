@@ -52,7 +52,6 @@
 \setlength{\unitlength}{1mm}  % default unit length 1mm
 
 % \ttalert[1]      -> highlight #1 in typewriter text
-% \CourseDates[1]  -> #1 from when to when the course runs
 \newcommand{\ttalert}[1]{\alert{\texttt{#1}}}
 
 % colours

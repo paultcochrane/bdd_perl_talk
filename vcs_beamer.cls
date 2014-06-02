@@ -48,7 +48,7 @@
 % length changes
 \setlength{\parindent}{0pt}   % no paragraph indentation
 \setlength{\parskip}%
-  {1.2ex plus .5ex minus.5ex} % space between paragraphs
+  {1.2ex plus.5ex minus.5ex} % space between paragraphs
 \setlength{\unitlength}{1mm}  % default unit length 1mm
 
 % \ttalert[1]      -> highlight #1 in typewriter text
@@ -62,7 +62,7 @@
 \definecolor{mygray}{gray}{.9}
 \definecolor{lightgreen}{rgb}{.467,.621,.176}
 \definecolor{yellow}{rgb}{1,1,0}
-\definecolor{darkyellow}{rgb}{.6,.6,0}
+\definecolor{darkyellow}{rgb}{0.6,0.6,0}
 \definecolor{lightgrey}{rgb}{0.937,0.937,0.937}
 \definecolor{dnorange}{HTML}{FF6600}
 \definecolor{dngrey}{HTML}{999999}
@@ -124,15 +124,15 @@
 \usepackage{tabto}
 
 \newcommand{\linuxframe}[0]{%
-    \AddToShipoutPictureFG*{
-        \put(\LenToUnit{0.95\textwidth},\LenToUnit{0.95\textheight}){
+    \AddToShipoutPictureFG*{%
+        \put(\LenToUnit{0.95\textwidth},\LenToUnit{0.95\textheight}){%
             \includegraphics[width=10mm]{images/Tux.pdf}%
         }
     }
 }
 \newcommand{\windowsframe}[0]{%
-    \AddToShipoutPictureFG*{
-        \put(\LenToUnit{0.95\textwidth},\LenToUnit{0.95\textheight}){
+    \AddToShipoutPictureFG*{%
+        \put(\LenToUnit{0.95\textwidth},\LenToUnit{0.95\textheight}){%
             \includegraphics[width=10mm]{images/Windows-logo.png}%
         }
     }

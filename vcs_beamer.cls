@@ -52,11 +52,8 @@
 \setlength{\unitlength}{1mm}  % default unit length 1mm
 
 % \ttalert[1]      -> highlight #1 in typewriter text
-% \T               -> textbackslash
 % \CourseDates[1]  -> #1 from when to when the course runs
 \newcommand{\ttalert}[1]{\alert{\texttt{#1}}}
-
-\newcommand{\T}{\textbackslash}
 
 % colours
 \definecolor{uniblue}{cmyk}{0.80,0.55,0,0}

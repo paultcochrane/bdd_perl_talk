@@ -51,14 +51,69 @@
     \item Not a replacement for TDD!
 \end{itemize}
 
-BDD: user stories -> high level features -> low level functionality
+\end{frame}
 
-TDD: low level functionality -> high level features
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{What is BDD? (cont.)}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\begin{figure}
+    \begin{tikzpicture}
+        [
+            all/.style={%
+                rectangle,
+                thick,
+                align=center,
+                text width=5cm,
+                inner sep=1em,
+                outer sep=0pt,
+                node distance=1pt,
+            },
+            user-stories/.style={%
+                draw=RoyalBlue,
+                fill=RoyalBlue!20,
+            },
+            high-level/.style={%
+                draw=DarkOrange,
+                fill=DarkOrange!20,
+            },
+            low-level/.style={%
+                draw=red,
+                fill=red!20,
+            },
+        ]
+
+        \node [all, user-stories] (userStories)
+            {User stories};
+        \node [all, high-level, below=of userStories] (highLevel)
+            {High-level features};
+        \node [all, low-level, below=of highLevel] (lowLevel)
+            {Low-level functionality};
+
+        \draw [->, thick]
+            ($(node cs:name=userStories,anchor=north west) + (-0.5,0)$)
+            --
+            ($(node cs:name=lowLevel,anchor=south west) + (-0.5,0)$) {};
+        \node at ($(node cs:name=userStories,anchor=north west) + (-0.5,0.5)$) {BDD};
+
+        \draw [<-, thick]
+            ($(node cs:name=highLevel,anchor=north east) + (0.5,0)$)
+            --
+            ($(node cs:name=lowLevel,anchor=south east) + (0.5,0)$) {};
+        \node at ($(node cs:name=lowLevel,anchor=south east) + (0.5,-0.5)$) {TDD};
+    \end{tikzpicture}
+\end{figure}
+
+\vspace*{-0.5cm}
 
 Good (and quick) intro to BDD with Cucumber:
 \begin{itemize}
     \item Ben Mabey:
+        {\footnotesize
         \url{http://www.confreaks.com/videos/72-mwrc2009-bdd-with-cucumber}
+        }
 \end{itemize}
 
 \end{frame}
@@ -233,7 +288,7 @@ use Method::Signatures;
 Run \ttt{pherkin}
 \begin{lstlisting}
 $ pherkin
-No feature files found at ....
+No feature files found at ...
 \end{lstlisting}
 %stopzone
 

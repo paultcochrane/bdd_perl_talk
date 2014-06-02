@@ -40,10 +40,6 @@
 \usetheme{Boadilla}
 \usecolortheme{beaver}
 
-% font changes
-\def\UrlFont{\color{dnblue}\tt} % URL-Font auf Typewriter
-\usefonttheme[onlymath]{serif}   % Mathetext in Serifen
-
 % length changes
 \setlength{\parindent}{0pt}   % no paragraph indentation
 \setlength{\parskip}%

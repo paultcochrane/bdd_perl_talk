@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: clean help
 
 BASENAME = bdd_perl
 TEXNAME = $(BASENAME).tex

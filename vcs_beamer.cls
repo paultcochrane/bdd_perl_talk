@@ -1,7 +1,6 @@
 % vcs_beamer.cls - Version control system course LaTeX Class File.
 
-% Copyright (C) 2013 Paul Cochrane
-% Hacked from the LaTeX from Mark Heisterkamp, RRZN
+% Copyright (C) 2013-2014 Paul Cochrane
 % 
 % This program is free software; you can redistribute it and/or
 % modify it under the terms of the GNU General Public License

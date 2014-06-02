@@ -23,19 +23,20 @@
 
 \LoadClass[11pt,t,xcolor=svgnames]{beamer}
 
+% various extensions
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[british]{babel}
 \usepackage{csquotes}
-\usepackage{lmodern,
-            url,
-            multicol,
-            moreverb,
-            eso-pic,
-            marvosym,
-            pifont,
-            calc,
-            textcomp}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+\usepackage{graphicx}
+\usepackage{eurosym}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage{tikz}
             
 \usetheme{Boadilla}
 \usecolortheme{beaver}
@@ -73,17 +74,6 @@
 %\pgfdeclareimage[height=5mm]{RIGHT_LOGO}{logo_right}
 
 \hypersetup{colorlinks=true,linkcolor=dnblue, citecolor=black, urlcolor=dnblue}
-
-% various extensions
-\usepackage{verbatim}
-\usepackage{fancyvrb}
-\usepackage{graphicx}
-\usepackage{eurosym}
-\usepackage{booktabs}
-\usepackage{listings}
-\usepackage{tabularx}
-\usepackage{setspace}
-\usepackage{tikz}
 
 \lstset{backgroundcolor=\color{lightgrey},
         basicstyle=\scriptsize\ttfamily\color{black},

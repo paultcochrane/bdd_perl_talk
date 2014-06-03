@@ -375,8 +375,8 @@ Then qr//, func($context) {
 \frametitle{Example: A program to say ``moin''}
 
 \begin{itemize}
-    \item \ttt{Given} step will fail.  \ttt{When} and \ttt{Then} steps are
-        still pending.
+    \item \ttt{\Given} step will fail.  \ttt{\When} and \ttt{\Then} steps
+        are still pending.
 \end{itemize}
 
 \begin{lstlisting}[escapeinside='']
@@ -392,7 +392,7 @@ Scenario: '\inscenario{one name}'
 \end{lstlisting}
 
 \begin{itemize}
-    \item Write \ttt{Given} test.
+    \item Write \ttt{\Given} test.
 \end{itemize}
 
 \begin{lstlisting}[language=perl]
@@ -436,7 +436,7 @@ has 'name' => (
 \frametitle{Example: A program to say ``moin''}
 
 \begin{itemize}
-    \item \ttt{Given} step now passes; \ttt{When} step now fails; \ttt{Then}
+    \item \ttt{\Given} step now passes; \ttt{\When} step now fails; \ttt{\Then}
         step still pending.
 \end{itemize}
 
@@ -464,7 +464,7 @@ Scenario: '\inscenario{one name}'
 \frametitle{Example: A program to say ``moin''}
 
 \begin{itemize}
-    \item Write \ttt{When} test.
+    \item Write \ttt{\When} test.
 \end{itemize}
 
 \begin{lstlisting}[language=perl]
@@ -496,7 +496,7 @@ sub moin {
 \frametitle{Example: A program to say ``moin''}
 
 \begin{itemize}
-    \item \ttt{When} step now passes.  \ttt{Then} step now fails.
+    \item \ttt{\When} step now passes.  \ttt{\Then} step now fails.
 \end{itemize}
 
 \begin{lstlisting}[escapeinside='']
@@ -518,7 +518,7 @@ Scenario: '\inscenario{one name}'
 \frametitle{Example: A program to say ``moin''}
 
 \begin{itemize}
-    \item Implement \ttt{Then} test and \ttt{moin} sub.
+    \item Implement \ttt{\Then} test and \ttt{moin} sub.
 \end{itemize}
 
 \begin{lstlisting}[language=perl]
@@ -570,13 +570,13 @@ Scenario: '\inscenario{one name}'
 \end{itemize}
 
 Will be called \ttt{\ScenarioOutline} in a future version in order to be
-compatible with Cucumber.  See Bugs section of README.pod in distro.
+compatible with Cucumber.  See Bugs section of \ttt{README.pod} in distro.
 
 \begin{lstlisting}[escapeinside='']
 '\Scenario' say moin to multiple users
   '\Given' a MoinSayer object
-  '\When' I say "moin" to a "<user>"
-  '\Then' I see the message "<message>"
+  '\When' I say "moin" to a "'\textcolor{red}{<user>}'"
+  '\Then' I see the message "'\textcolor{red}{<message>}'"
 
   '\Exampless'
     | user  | message    |
@@ -593,22 +593,22 @@ compatible with Cucumber.  See Bugs section of README.pod in distro.
 
 \begin{itemize}
     \item Sometimes scenarios have redundant information
-    \item This can be extracted into \ttt{Background} information
+    \item This can be extracted into \ttt{\Background} information
 \end{itemize}
 
-\begin{lstlisting}
-Scenario: one name
+\begin{lstlisting}[escapeinside='']
+'\Scenario' one name
   # dodgy!  implementation detail...
-  Given a MoinSayer object
-  When I say "moin" to "bob"
-  Then I should see the message "moin bob"
+  '\Given' a MoinSayer object
+  '\When' I say "moin" to "bob"
+  '\Then' I should see the message "moin bob"
 
-Scenario: say moin to multiple users
+'\Scenario' say moin to multiple users
   # duplicated information
-  Given a MoinSayer object
-  When I say "moin" to "<user>"
-  Then I see the message "<message>"
-  Examples:
+  '\Given' a MoinSayer object
+  '\When' I say "moin" to "'\textcolor{red}{<user>}'"
+  '\Then' I see the message "'\textcolor{red}{<message>}'"
+  '\Exampless'
     | user  | message    |
     | bob   | moin bob   |
     | alice | moin alice |
@@ -621,19 +621,19 @@ Scenario: say moin to multiple users
 \begin{frame}[fragile]
 \frametitle{Background information}
 
-\begin{lstlisting}
-Background:
+\begin{lstlisting}[escapeinside='']
+'\Background'
   # dodgy!  implementation detail...
-  Given a MoinSayer object
+  '\Given' a MoinSayer object
 
-Scenario: one name
-  When I say "moin" to "bob"
-  Then I should see the message "moin bob"
+'\Scenario' one name
+  '\When' I say "moin" to "bob"
+  '\Then' I should see the message "moin bob"
 
-Scenario: say moin to multiple users
-  When I say "moin" to "<user>"
-  Then I see the message "<message>"
-  Examples:
+'\Scenario' say moin to multiple users
+  '\When' I say "moin" to "'\textcolor{red}{<user>}'"
+  '\Then' I see the message "'\textcolor{red}{<message>}'"
+  '\Exampless'
     | user  | message    |
     | bob   | moin bob   |
     | alice | moin alice |
@@ -676,12 +676,12 @@ Scenario: say moin to multiple users
     \item Features and Scenarios can also be tagged
 \end{itemize}
 
-\begin{lstlisting}
-    @wip
-    Scenario: say moin to English speakers
-        Given the language "english"
-        When I say "moin to "bob"
-        Then I should see the message "hello bob"
+\begin{lstlisting}[escapeinside='']
+    '\wip'
+    '\Scenario' say moin to English speakers
+        '\Given' the language "english"
+        '\When' I say "moin to "bob"
+        '\Then' I should see the message "hello bob"
 \end{lstlisting}
 
 \begin{itemize}
@@ -708,19 +708,19 @@ $ pherkin -l -t ~@wip
     \item Multi-line input can be entered as a \emph{pystring}
 \end{itemize}
 
-\begin{lstlisting}
-  Scenario: long messages to users
+\begin{lstlisting}[escapeinside='']
+  '\Scenario' long messages to users
     When the greeting text to "bob" contains
-    """
-    Greetings, oh most amazing
-    and illustrious aquaiantance
-    """
+    '\textcolor{red}{"""}'
+    '\textcolor{red}{Greetings, oh most amazing}'
+    '\textcolor{red}{and illustrious aquaintance}'
+    '\textcolor{red}{"""}'
     Then the message should be
-    """
-    Greetings, oh most amazing
-    and illustrious aquaintance,
-    bob
-    """
+    '\textcolor{red}{"""}'
+    '\textcolor{red}{Greetings, oh most amazing}'
+    '\textcolor{red}{and illustrious aquaintance,}'
+    '\textcolor{red}{bob}'
+    '\textcolor{red}{"""}'
 \end{lstlisting}
 
 \begin{itemize}

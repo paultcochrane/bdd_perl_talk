@@ -30,6 +30,11 @@
 
 \newcommand{\wip}{\color{BlueViolet}{@wip}}
 
+\newcommand{\Transform}{\ttt{Transform}}
+\newcommand{\Before}{\ttt{Before}}
+\newcommand{\After}{\ttt{After}}
+\newcommand{\Around}{\ttt{Around}}
+
 \begin{document}
 
 \author{Paul Cochrane}
@@ -731,14 +736,19 @@ $ pherkin -l -t ~@wip
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{CI server integration}
-    Run your Cucumber steps as part of your test suite.
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
     \frametitle{More Cucumber features}
-    Transform, Begin, After, About, Hooks
+
+    \begin{description}
+        \item[\Transform] transform captured arguments.  E.g. string
+            $\Leftrightarrow$ integer conversions (really only helpful in
+            Python or Ruby \ldots).  Helps reduce repetition in step
+            definitions.
+        \item[\Before] run code \emph{before} a scenario
+        \item[\After] run code \emph{after} a scenario
+        \item[\Around] effectively a combined \Before and \After, but with
+            looping possiblities.  Not yet possible in
+            \ttt{Test::BDD::Cucumber}.
+    \end{description}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

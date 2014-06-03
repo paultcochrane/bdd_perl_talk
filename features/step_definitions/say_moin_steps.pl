@@ -8,21 +8,21 @@ use Test::BDD::Cucumber::StepFile;
 use Method::Signatures;
 use Capture::Tiny ':all';
 
-Given qr/^a MoinSayer object$/, func($c) {
+Given qr/^a MoinSayer object$/, func($context) {
     use MoinSayer;
     my $sayer = MoinSayer->new(name => $1);
     ok( $sayer, "Object created" );
-    $c->stash->{'scenario'}->{'object'} = $sayer;
+    $context->stash->{'scenario'}->{'object'} = $sayer;
 };
 
-When qr/^I say "moin" to "(\w+)"$/, func($c) {
+When qr/^I say "moin" to "(\w+)"$/, func($context) {
     my $stdout = capture_stdout {
-	$c->stash->{'scenario'}->{'object'}->moin($1);
+	$context->stash->{'scenario'}->{'object'}->moin($1);
     };
-    $c->stash->{'scenario'}->{'stdout'} = $stdout;
+    $context->stash->{'scenario'}->{'stdout'} = $stdout;
 };
 
-Then qr/^I should see the message "moin (\w+)"$/, func($c) {
-    my $stdout = $c->stash->{'scenario'}->{'stdout'};
+Then qr/^I should see the message "moin (\w+)"$/, func($context) {
+    my $stdout = $context->stash->{'scenario'}->{'stdout'};
     like( $stdout, qr/moin $1/, "Said expected greeting" );
 };

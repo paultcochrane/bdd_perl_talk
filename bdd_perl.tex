@@ -347,15 +347,15 @@ use Test::More;
 use Test::BDD::Cucumber::StepFile;
 use Method::Signatures;
 
-Given qr//, func($c) {  # $c is an object holding context info
+Given qr//, func($context) {  # $context is an object holding context info
     ok(0);
 };
 
-When qr//, func($c) {
+When qr//, func($context) {
     ok(0);
 };
 
-Then qr//, func($c) {
+Then qr//, func($context) {
     ok(0);
 };
 \end{lstlisting}
@@ -389,11 +389,11 @@ Scenario: '\inscenario{one name}'
 \end{itemize}
 
 \begin{lstlisting}[language=perl]
-Given qr/the name "(\w+)"/, func($c) {
+Given qr/the name "(\w+)"/, func($context) {
     use MoinSayer;
     my $sayer = MoinSayer->new(name => $1);
     ok( $sayer, "Object created" );
-    $c->stash->{'scenario'}->{'object'} = $sayer;
+    $context->stash->{'scenario'}->{'object'} = $sayer;
 };
 \end{lstlisting}
 
@@ -463,9 +463,9 @@ Scenario: '\inscenario{one name}'
 \begin{lstlisting}[language=perl]
 ...
 my $stdout = capture_stdout {
-    $c->stash->{'scenario'}->{'object'}->moin();
+    $context->stash->{'scenario'}->{'object'}->moin();
 };
-$c->stash->{'scenario'}->{'stdout'} = $stdout;
+$context->stash->{'scenario'}->{'stdout'} = $stdout;
 ...
 \end{lstlisting}
 
@@ -516,7 +516,7 @@ Scenario: '\inscenario{one name}'
 
 \begin{lstlisting}[language=perl]
 ...
-my $stdout = $c->stash->{'scenario'}->{'stdout'};
+my $stdout = $context->stash->{'scenario'}->{'stdout'};
 like( $stdout, qr/moin $1/, "Said expected greeting" );
 ...
 \end{lstlisting}

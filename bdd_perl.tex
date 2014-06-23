@@ -179,8 +179,8 @@ The Cucumber Book:
         '\When' [action]
         '\Then' [outcome]
 
-    '\str{\# also "Scenario Outline:", implemented currently as "Scenario:"}'
-    '\Scenario' name of scenario outline
+    '\str{\# run a list of scenario examples}'
+    '\ScenarioOutline' name of scenario outline
         '\Given', '\When', '\Then', etc.
 
         '\Exampless'
@@ -577,13 +577,12 @@ Scenario: '\inscenario{one name}'
 
 \begin{itemize}
     \item How to handle multiple inputs and outputs?
+    \item Loop similarly to a \ttt{for} loop over a set of examples
+    \item Compacts multiple use case scenarios into a table
 \end{itemize}
 
-Will be called \ttt{\ScenarioOutline} in a future version in order to be
-compatible with Cucumber.  See Bugs section of \ttt{README.pod} in distro.
-
 \begin{lstlisting}[escapeinside='']
-'\Scenario' say moin to multiple users
+'\ScenarioOutline' say moin to multiple users
   '\Given' a MoinSayer object
   '\When' I say "moin" to a "'\textcolor{red}{<user>}'"
   '\Then' I see the message "'\textcolor{red}{<message>}'"

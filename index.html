@@ -68,6 +68,242 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           </ul>
         </section>
 
+        <section>
+          <h2>What is BDD?</h2>
+
+          Good (and quick) intro to BDD with Cucumber
+          <ul>
+            <li>
+              Ben Mabey
+              http://www.confreaks.com/videos/72-mwrc2009-bdd-with-cucumber
+            </li>
+          </ul>
+
+          The Cucumber Book:
+          http://pragprog.com/book/hwcuc/the-cucumber-book
+        </section>
+
+        <section>
+          <h2>Cucumber</h2>
+          <ul>
+            <li>
+              Stakeholders/Domain experts write requirements in
+              business-readable domain-specific language.
+            </li>
+            <li>
+              This can be parsed and the underlying (matching) tests get executed.
+            </li>
+            <li>
+              Serves as documentation for the desired features.
+            </li>
+            <li>
+              Domain experts don't have to write code!
+            </li>
+            <li>
+              Domain experts <em>and</em> developers understand what is to be built.
+            </li>
+            <li>
+              Parseable natural language: <em>Gherkin</em>
+            </li>
+          </ul>
+
+          <pre><code data-trim contenteditable>
+            Feature User login
+                As a user of the system
+                In order to see my account information
+                I want to be able to log in
+
+                Scenario Successful login
+                    Given I have an account on the system
+                    When I enter my username and password
+                    Then I should be presented with my account information
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Gherkin the language</h2>
+
+          <pre><code>
+Feature name of current feature
+    # description of feature; purely for documentation
+    In order to [business value]
+    As a [role]
+    I want to [some action]
+
+    # possible background information, relevant to all scenarios
+    Background
+        Given [context/state]
+
+    # scenario(s) describing details of feature
+    Scenario name of current scenario
+        Given [context/state]
+        When [action]
+        Then [outcome]
+
+    # loop over a list of scenario examples
+    ScenarioOutline name of scenario outline
+        Given, When, Then, etc.
+
+        Examples
+            | item header | value header |
+            | item        | value        |
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Gherkin works in <em>your</em> language</h2>
+
+          <pre><code>
+Funktionalität: dickes Auto fahren
+    Als deutsche Autofahrer
+    Damit ich schnell fahren kann
+    Will ich ein dickes Auto haben
+
+    Szenario: auf der Autobahn fahren
+        Angenommen, dass ich auf der Autobahn fahre
+        Wenn ich Gas gebe
+        Dann soll ich mit mindestens 180 Sachen unterwegs sein
+        </pre></code>
+        </section>
+
+        <section>
+          <h2>Gherkin works in <em>your</em> language</h2>
+          <pre><code>
+OHAI: I CAN HAS WISHEZ PLZ
+    SO DAT I CAN HAS HUGS TIEM AN PLAY TIEM AN SLEEP TIEM
+    AS NICE GREEDEE KITTEH
+    I CAN PLZ MANEGE TEH WISHEZ
+
+    MISHUN: MAK NEW WISH
+        GIVN I AM LOGGD IN
+        WEN I MAK "CHEEZBURGER" WISH
+        DEN I C "CHEEZBURGER" ON ME WISHEZ LIST
+        </code></pre>
+        </section>
+
+        <section>
+          <h2>Cucumber in Perl</h2>
+          <ul>
+            <li><code><a href="http://metacpan.org/dist/">
+                  Test::BDD::Cucumber
+                </a></code></li>
+            <ul>
+              <li>Current version: 0.26</li>
+              <li>Last release: 21 Jun 2014</li>
+              <li>Usable and many Cucumber features implemented</li>
+              <li>Command line tool: <code>pherkin</code></li>
+            </ul>
+
+            <li><code><a href="http://metacpan.org/...">
+                  Test::Pcuke
+                </a></code></li>
+            <ul>
+              <li>Current version: 0.000006</li>
+              <li>Last release: 03 Dec 2011</li>
+            </ul>
+
+            <li><code><a href="http://metacpan.org/...">
+                  Test::Cukes
+                </a></code></li>
+            <ul>
+              <li>Current version: </li>
+              <li>Last release: </li>
+            </ul>
+          </ul>
+
+          <pre><code data-trim>pherkin -l = pherkin -I lib</code></pre>
+        </section>
+
+        <section>
+          <h2>BDD development cycle</h2>
+          <ul>
+            <li>Start a feature</li>
+            <li>Write a scenario describing an aspect of that feature</li>
+            <li>Write the steps associated with that scenario</li>
+            <ul>
+              <li>
+                Each <code>Given</code>, <code>When</code>,
+                <code>Then</code> is a <em>step</em>
+              </li>
+            </ul>
+            <li>Run <code>pherkin</code></li>
+            <li>Steps are undefined</li>
+            <li>Write automation code in unit-testing framework, e.g.
+              <code>Test::More</code></li>
+            <li>Steps fail</li>
+            <li><font color="chucknorris">Red</font> ->
+              <font color="green">Green</font> ->
+              <font color="blue">Refactor</font> until step passes</li>
+            <li>Move on to next step</li>
+            <li>Lather, rinse, repeat</li>
+          </ul>
+
+        </section>
+
+        <section>
+          <h2>Required directory structure for Cucumber</h2>
+
+          <pre>
+project/
+    features/
+        my_cool_feature.feature
+        step_definitions/
+            cool_steps.pl
+            other_steps.pl
+          </pre>
+
+          <ul>
+            <li><code>.feature</code> file is written in Gherkin</li>
+            <li>step definition files (<code>*\_steps.pl</code>) are written in
+              Perl</li>
+            <li>step definition files use your favourite testing framework
+              (e.g. <code>Test::More</code>)
+            </li>
+          </ul>
+
+        </section>
+
+        <section>
+          <ul>
+            <li>Recommended minimum Perl code in a step definition file:
+          </ul>
+          <pre><code data-trim>
+use strict;
+use warnings;
+
+use Test::More;
+use Test::BDD::Cucumber::StepFile;
+use Method::Signatures;
+          </code></pre>
+
+        </section>
+
+        <section>
+          <h2>Calculator example</h2>
+
+          <p>
+          More examples at <a href="http://cukes.info">cukes.info</a> and in
+          the <code>examples/</code> directory of the
+          <code>Test::BDD::Cucumber</code> distribution.
+          </p>
+
+          <ul>
+            <li>Run <code>pherkin</code></li>
+          </ul>
+          <pre><code data-trim>
+$ pherkin
+No feature files found at ...
+          </pre></code>
+
+          <p>
+          Create a feature file and a <code>step_definitions/</code>
+          directory.
+          </p>
+
+          ....
+
+        </section>
+
       </div>
 
     </div>

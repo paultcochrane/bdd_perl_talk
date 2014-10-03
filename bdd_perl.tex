@@ -296,7 +296,7 @@ use Method::Signatures;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{A program to say ``moin''}
+\frametitle{A calculator program}
 
 Better examples exist at {\footnotesize \url{http://cukes.info}} and in the
 \ttt{examples/} directory of the \ttt{Test::BDD::Cucumber} distribution.
@@ -311,16 +311,16 @@ No feature files found at ...
 Create a feature file and a \ttt{step\_definitions/} directory
 \begin{lstlisting}[escapeinside='']
 $ mkdir -p features/step_definitions
-$ vim features/say_moin.feature
-'\Feature' Say moin to names in list
+$ vim features/xxx.feature
+'\Feature'
     As a user of the software
-    In order to be a nice person
-    I want to say '\str{"moin"}' to others
+    In order to ...
+    I want to ...
 
-    '\Scenario' one name
-        '\Given' the name '\str{"bob"}'
-        '\When' I say moin
-        '\Then' I should see '\str{"moin bob"}'
+    '\Scenario'
+        '\Given'
+        '\When'
+        '\Then'
 \end{lstlisting}
 %stopzone
 
@@ -328,7 +328,7 @@ $ vim features/say_moin.feature
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Example: A program to say ``moin''}
+\frametitle{Example: A calculator program}
 
 Running \ttt{pherkin} again should now show us boilerplate code we can copy
 and paste to create our step definitions (standard behaviour of Cucumber
@@ -341,16 +341,16 @@ implemented in \ttt{Test::BDD::Cucumber}.
 
 \begin{lstlisting}[escapeinside='']
 Scenario: '\color{RoyalBlue}{one name}'
-  '\color{DarkOrange}{Given the name} \color{Turquoise}{"bob"}'
-  '\color{DarkOrange}{When I say moin}'
-  '\color{DarkOrange}{Then I should see} \color{Turquoise}{"moin bob"}'
+  '\color{DarkOrange}{Given}'
+  '\color{DarkOrange}{When}'
+  '\color{DarkOrange}{Then}'
 \end{lstlisting}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Example: A program to say ``moin''}
+\frametitle{Example: A calculator program}
 
 \begin{itemize}
     \item Create the step file
@@ -382,7 +382,7 @@ Then qr//, func($context) {
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Example: A program to say ``moin''}
+\frametitle{Example: A calculator program}
 
 \begin{itemize}
     \item \ttt{\Given} step will fail.  \ttt{\When} and \ttt{\Then} steps
@@ -391,14 +391,9 @@ Then qr//, func($context) {
 
 \begin{lstlisting}[escapeinside='']
 Scenario: '\inscenario{one name}'
-    '\error{Given the name}' '\str{"bob"}'
-    '\error{step defined at features/say\_moin.feature line 7.}'
-    '\error{ok 1 - Starting to execute step: the name "bob"}'
-    '\error{not ok 2}'
-    '\error{\#   Failed test at features/step\_definitions/say\_moin\_steps.pl line 16.}'
-    '\error{1..2}'
-  '\pending{When I say moin}'
-  '\pending{Then I should see}' '\str{"moin bob"}'
+    '\error{Given}'
+  '\pending{When}'
+  '\pending{Then}'
 \end{lstlisting}
 
 \begin{itemize}
@@ -407,31 +402,29 @@ Scenario: '\inscenario{one name}'
 
 \begin{lstlisting}[language=perl]
 Given qr/the name "(\w+)"/, func($context) {
-    use MoinSayer;
-    my $sayer = MoinSayer->new(name => $1);
-    ok( $sayer, "Object created" );
-    $context->stash->{'scenario'}->{'object'} = $sayer;
+    ...
 };
 \end{lstlisting}
+%stopzone
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Example: A program to say ``moin''}
+\frametitle{Example: A calculator program}
 
 \begin{itemize}
     \item \ttt{\Given} step naturally still fails (but now for a different
         reason).
-    \item Create \ttt{lib} dir, add \ttt{MoinSayer} class and \ttt{name}
+    \item Create \ttt{lib} dir, add \ttt{xxx} class and \ttt{name}
         attribute.
 \end{itemize}
 
 \begin{lstlisting}[language=perl]
 $ mkdir lib
-$ vim lib/MoinSayer.pm
+$ vim lib/... .pm
 ...
-has 'name' => (
+has '' => (
     is => 'ro',
     isa => 'Str',
 );
@@ -443,7 +436,7 @@ has 'name' => (
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Example: A program to say ``moin''}
+\frametitle{Example: A calculator program}
 
 \begin{itemize}
     \item \ttt{\Given} step now passes; \ttt{\When} step now fails; \ttt{\Then}
@@ -452,15 +445,10 @@ has 'name' => (
 
 \begin{lstlisting}[escapeinside='']
 $ pherkin -I lib
-Scenario: '\inscenario{one name}'
-  '\pass{Given the name} \str{"bob"}'
-  '\error{When I say moin}'
-    '\error{step defined at features/say\_moin.feature line 8.}'
-    '\error{ok 1 - Starting to execute step: I say moin}'
-    '\error{not ok 2}'
-    '\error{\#   Failed test at features/step\_definitions/say\_moin\_steps.pl line 23.}'
-    '\error{1..2}'
-  '\pending{Then I should see} \str{"moin bob"}'
+Scenario: '\inscenario{xxx}'
+  '\pass{Given}'
+  '\error{When}'
+  '\pending{Then}'
 \end{lstlisting}
 %stopzone
 
@@ -471,7 +459,7 @@ Scenario: '\inscenario{one name}'
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Example: A program to say ``moin''}
+\frametitle{Example: A calculator example}
 
 \begin{itemize}
     \item Write \ttt{\When} test.
@@ -479,20 +467,16 @@ Scenario: '\inscenario{one name}'
 
 \begin{lstlisting}[language=perl]
 ...
-my $stdout = capture_stdout {
-    $context->stash->{'scenario'}->{'object'}->moin();
-};
-$context->stash->{'scenario'}->{'stdout'} = $stdout;
 ...
 \end{lstlisting}
 
 \begin{itemize}
-    \item Write stub \ttt{moin()} method.
+    \item Write stub \ttt{blah()} method.
 \end{itemize}
 
 \begin{lstlisting}[language=perl]
 ...
-sub moin {
+sub blah {
     my $self = shift;
 }
 ...
@@ -503,46 +487,39 @@ sub moin {
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Example: A program to say ``moin''}
+\frametitle{Example: A calculator example}
 
 \begin{itemize}
     \item \ttt{\When} step now passes.  \ttt{\Then} step now fails.
 \end{itemize}
 
 \begin{lstlisting}[escapeinside='']
-Scenario: '\inscenario{one name}'
-  '\pass{Given the name} \str{"bob"}'
-  '\pass{When I say moin}'
-  '\error{Then I should see} \str{"moin bob"}'
-    '\error{step defined at features/say\_moin.feature line 9.}'
-    '\error{ok 1 - Starting to execute step: I should see "moin bob"}'
-    '\error{not ok 2}'
-    '\error{\#   Failed test at features/step\_definitions/say\_moin\_steps.pl line 28.}'
-    '\error{1..2}'
+Scenario: '\inscenario{xxx}'
+  '\pass{Given}'
+  '\pass{When}'
+  '\error{Then}'
 \end{lstlisting}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Example: A program to say ``moin''}
+\frametitle{Example: A calculator example}
 
 \begin{itemize}
-    \item Implement \ttt{\Then} test and \ttt{moin} sub.
+    \item Implement \ttt{\Then} test and \ttt{blah} sub.
 \end{itemize}
 
 \begin{lstlisting}[language=perl]
 ...
-my $stdout = $context->stash->{'scenario'}->{'stdout'};
-like( $stdout, qr/moin $1/, "Said expected greeting" );
 ...
 \end{lstlisting}
 
 \begin{lstlisting}[language=perl]
 ...
-sub moin {
+sub blah {
     my $self = shift;
-    print "moin ", $self->name, "\n";
+    ...
 }
 ...
 \end{lstlisting}
@@ -552,17 +529,17 @@ sub moin {
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-\frametitle{Example: A program to say ``moin''}
+\frametitle{Example: A calculator example}
 
 \begin{itemize}
     \item All steps now pass.
 \end{itemize}
 
 \begin{lstlisting}[escapeinside='']
-Scenario: '\inscenario{one name}'
-  '\pass{Given the name} \str{"bob"}'
-  '\pass{When I say moin}'
-  '\pass{Then I should see} \str{"moin bob"}'
+Scenario: '\inscenario{xxx}'
+  '\pass{Given}'
+  '\pass{When}'
+  '\pass{Then}'
 \end{lstlisting}
 
 \begin{itemize}
@@ -582,16 +559,14 @@ Scenario: '\inscenario{one name}'
 \end{itemize}
 
 \begin{lstlisting}[escapeinside='']
-'\ScenarioOutline' say moin to multiple users
-  '\Given' a MoinSayer object
-  '\When' I say "moin" to a "'\textcolor{red}{<user>}'"
-  '\Then' I see the message "'\textcolor{red}{<message>}'"
+'\ScenarioOutline'
+  '\Given'
+  '\When'
+  '\Then'
 
   '\Exampless'
-    | user  | message    |
-    | bob   | moin bob   |
-    | alice | moin alice |
-    | eve   | moin eve   |
+    |  |  |
+    |  |  |
 \end{lstlisting}
 
 \end{frame}
@@ -606,22 +581,20 @@ Scenario: '\inscenario{one name}'
 \end{itemize}
 
 \begin{lstlisting}[escapeinside='']
-'\Scenario' one name
-  # dodgy!  implementation detail...
-  '\Given' a MoinSayer object
-  '\When' I say "moin" to "bob"
-  '\Then' I should see the message "moin bob"
+'\Scenario'
+  '\Given'
+  '\When'
+  '\Then'
 
-'\Scenario' say moin to multiple users
-  # duplicated information
-  '\Given' a MoinSayer object
-  '\When' I say "moin" to "'\textcolor{red}{<user>}'"
-  '\Then' I see the message "'\textcolor{red}{<message>}'"
+'\Scenario'
+  '\Given'
+  '\When'
+  '\Then'
   '\Exampless'
-    | user  | message    |
-    | bob   | moin bob   |
-    | alice | moin alice |
-    | eve   | moin eve   |
+    |  |  |
+    |  |  |
+    |  |  |
+    |  |  |
 \end{lstlisting}
 
 \end{frame}
@@ -632,21 +605,20 @@ Scenario: '\inscenario{one name}'
 
 \begin{lstlisting}[escapeinside='']
 '\Background'
-  # dodgy!  implementation detail...
-  '\Given' a MoinSayer object
+  '\Given'
 
-'\Scenario' one name
-  '\When' I say "moin" to "bob"
-  '\Then' I should see the message "moin bob"
+'\Scenario'
+  '\When'
+  '\Then'
 
-'\Scenario' say moin to multiple users
-  '\When' I say "moin" to "'\textcolor{red}{<user>}'"
-  '\Then' I see the message "'\textcolor{red}{<message>}'"
+'\Scenario'
+  '\When'
+  '\Then'
   '\Exampless'
-    | user  | message    |
-    | bob   | moin bob   |
-    | alice | moin alice |
-    | eve   | moin eve   |
+    |  |  |
+    |  |  |
+    |  |  |
+    |  |  |
 \end{lstlisting}
 
 \end{frame}
@@ -687,10 +659,10 @@ Scenario: '\inscenario{one name}'
 
 \begin{lstlisting}[escapeinside='']
     '\wip'
-    '\Scenario' say moin to English speakers
-        '\Given' the language "english"
-        '\When' I say "moin to "bob"
-        '\Then' I should see the message "hello bob"
+    '\Scenario'
+        '\Given'
+        '\When'
+        '\Then'
 \end{lstlisting}
 
 \begin{itemize}
